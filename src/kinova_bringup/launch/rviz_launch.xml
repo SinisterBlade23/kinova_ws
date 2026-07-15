@@ -7,17 +7,18 @@
     <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
   </node>
 
-  <!-- 2. Core ros2_control execution node
+ 
   <node pkg="controller_manager" exec="ros2_control_node">
     <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
     <param from="$(var controllers_path)" />
-  </node> -->
+  </node>
 
-  <node pkg = "joint_state_publisher_gui" exec = "joint_state_publisher_gui" /> 
+  <!-- <node pkg = "joint_state_publisher_gui" exec = "joint_state_publisher_gui" />  -->
 
-  <!-- 3. Spawners
+ 
   <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
-  <node pkg="controller_manager" exec="spawner" args="joint_position_controller" /> -->
+  <node pkg="controller_manager" exec="spawner" args="joint_position_controller" />
+  <node pkg="controller_manager" exec="spawner" args="cartesian_motion_controller --inactive" />
 
   <!-- 4. Visualization -->
   <node pkg="rviz2" exec="rviz2" output="screen" />
