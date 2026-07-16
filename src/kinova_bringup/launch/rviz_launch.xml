@@ -17,9 +17,11 @@
 
  
   <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
-  <node pkg="controller_manager" exec="spawner" args="joint_position_controller" />
-  <node pkg="controller_manager" exec="spawner" args="cartesian_motion_controller --inactive" />
-
+  <node pkg="controller_manager" exec="spawner" args="joint_position_controller --inactive" />
+  <node pkg="controller_manager" exec="spawner" args="cartesian_motion_controller " />
+  <timer period="3.0">
+    <node pkg="imu_bridge" exec="orientation_pubsub"/>
+  </timer>
   <!-- 4. Visualization -->
   <node pkg="rviz2" exec="rviz2" output="screen" />
 </launch>
