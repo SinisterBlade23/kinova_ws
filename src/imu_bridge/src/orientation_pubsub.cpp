@@ -21,7 +21,7 @@ class orientation_pubsub: public rclcpp::Node
             publisher_ = this->create_publisher<geometry_msgs::msg::PoseStamped>(
                 "/cartesian_motion_controller/target_frame",10);
 
-            timer_ = this->create_wall_timer(0.01s,std::bind(&orientation_pubsub::publishQuaternions,this));
+            timer_ = this->create_wall_timer(0.001s,std::bind(&orientation_pubsub::publishQuaternions,this));
         }
     private:   
 
