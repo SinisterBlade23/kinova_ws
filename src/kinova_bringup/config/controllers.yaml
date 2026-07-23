@@ -49,6 +49,6 @@ cartesian_motion_controller:
       trans_x: {p: 5.0}
       trans_y: {p: 5.0}
       trans_z: {p: 5.0}
-      rot_x: {p: 0.5}
-      rot_y: {p: 0.5}
-      rot_z: {p: 0.5}
+      rot_x: {p: 2.0}
+      rot_y: {p: 2.0}
+      rot_z: {p: 2.0}
