@@ -1,7 +1,7 @@
 # Ultrasound Probe Orientation Teleoperation
-![](graphical_abstract.png)
+![Final desired prototype](graphical_abstract.png)
 
-![](Screenshot 2026-07-24 230631.png)
+![first iteration](Screenshot 2026-07-24 230631.png)
 
 Real-time orientation teleoperation pipeline that lets a Kinova Gen3 7-DOF robotic arm mirror the orientation of a handheld ultrasound probe, using a custom IMU sensing collar. Developed as part of a research internship at IIT Mandi, under Prof. Deepak Raina.
 
