@@ -29,13 +29,12 @@ A BNO08x 9-DoF IMU, mounted on a wearable collar around the probe, streams live 
 
 ### Sensing collar
 - **BNO08x** 9-DoF IMU (I2C) — probe orientation, streamed as a fused Rotation Vector (accelerometer + gyroscope + magnetometer)
-- **TAL220B load cell** with **HX711** ADC — contact force sensing (collar concept; not yet wired into the live ROS2 pipeline)
 - **FSR** (force-sensitive resistor) — auxiliary contact sensing, currently read and transmitted but not yet processed downstream
 - Clamshell collar housing with a three-point force puck geometry, designed to mount around a standard ultrasound probe body
 - **ESP32** microcontroller — reads the IMU and FSR, streams data over USB serial
 
 ### Robotic arm
-- **Kinova Gen3**, 7-DOF — currently simulated via `ros2_control`'s `mock_components/GenericSystem`, visualized in RViz. No physical arm integration yet.
+- **Kinova Gen3**, 7-DOF — currently simulated via `ros2_control`'s `mock_components/GenericSystem`, visualized in RViz. 
 
 ## Software architecture
 
@@ -65,7 +64,7 @@ Quaternion field order (`qi, qj, qk, qr`) matches ROS's `geometry_msgs/Quaternio
 3. **`imu_bridge`** reads live orientation from the ESP32 over serial and publishes `PoseStamped` messages (fixed reference position, live orientation) directly to the controller's `target_frame` topic.
 4. The arm continuously tracks the probe's orientation in real time, visualized in RViz.
 
-Only one of `joint_position_controller` / `cartesian_motion_controller` can be active at a time, since both claim the same joint command interfaces — switching is done via `ros2 control switch_controllers`.
+Only one of `joint_position_controller` / `cartesian_motion_controller` can be active at a time, since both claim the same joint command interfaces — switching is done via `ros2 control switch_controllers` and initially set in launch.
 
 ### Safety / limits
 - Per-joint velocity limits enforced via `enforce_command_limits: true` combined with `velocity` limits set in the URDF
@@ -93,7 +92,7 @@ ros2 launch kinova_bringup rviz_launch.xml
 
 This brings up `robot_state_publisher`, `ros2_control_node` (mock hardware), `joint_state_broadcaster`, `joint_position_controller` (active), `cartesian_motion_controller` (loaded, inactive), and RViz.
 
-Switch to Cartesian tracking once the arm is in a safe starting pose:
+Switch to Cartesian tracking once the arm is in a safe starting pose (ON BY DEFAULT):
 
 ```bash
 ros2 control switch_controllers --deactivate joint_position_controller --activate cartesian_motion_controller
